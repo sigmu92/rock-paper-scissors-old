@@ -1,10 +1,70 @@
 <!DOCTYPE HTML>
 
 <script>
-    const choices = ["Rock", "Paper", "Scissors"];
+    const choices = ["rock", "paper", "scissors"];
     function computerPlay(){
         let compChoice = Math.floor(3*Math.random())
-        console.log(compChoice)    
+        return(choices[compChoice])
     }
-    computerPlay()
+    function playerPlay(){
+        let goodAnswer = false;
+        let playerChoice = prompt("Rock, paper, or scissors?")
+        playerChoice = playerChoice.toLowerCase()
+        goodAnswer = checkResponse(playerChoice);
+        while (goodAnswer==false){
+            playerChoice = prompt("Invalid response, try again!")
+            playerChoice = playerChoice.toLowerCase()
+            goodAnswer = checkResponse(playerChoice)
+        }
+        return(playerChoice)
+    }
+    function checkResponse(response){
+        let valid = false;
+        for (let i = 0; i<3; i++){
+            if (choices[i] == response){
+                valid = true
+            }
+}       return valid
+    }
+    function playRound(playerSelection,computerSelection){
+        let outcome;
+        let outcomeResponse
+        if (playerSelection == 'rock'){
+            if (computerSelection == 'rock'){
+                outcomeResponse = "It's a draw! Rock equals Rock"
+            }
+            else if (computerSelection == 'paper' ){
+                outcomeResponse = "You Lose! Paper beats Rock"
+            }
+            else {
+                outcomeResponse = "You win! Rock beats Scissors"
+            }
+        }
+        if (playerSelection == "scissors"){
+            if (computerSelection == 'scissors'){
+                outcomeResponse = "It's a draw! Scissors equals Scissors"
+            }
+            else if (computerSelection == 'rock' ){
+                outcomeResponse = "You Lose! Rock beats Scissors"
+            }
+            else {
+                outcomeResponse = "You win! Scissors beat Paper"
+            }
+        }   
+        if (playerSelection == "paper"){
+            if (computerSelection == 'paper'){
+                outcomeResponse = "It's a draw! Paper equals Paper"
+            }
+            else if (computerSelection == 'scissors' ){
+                outcomeResponse = "You Lose! Scissors beat paper"
+            }
+            else {
+                outcomeResponse = "You win! Paper beats Rock"
+            }
+        }  
+        return (outcomeResponse)
+    }
+    const playerSelection = "paper"
+    const computerSelection = computerPlay()
+    console.log(playRound(playerSelection,computerSelection))
 </script>
