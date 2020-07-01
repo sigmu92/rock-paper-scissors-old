@@ -31,40 +31,69 @@
         let outcomeResponse
         if (playerSelection == 'rock'){
             if (computerSelection == 'rock'){
-                outcomeResponse = "It's a draw! Rock equals Rock"
+                outcomeResponse = "It's a draw! Rock equals Rock";
+                outcome=0;
             }
             else if (computerSelection == 'paper' ){
-                outcomeResponse = "You Lose! Paper beats Rock"
+                outcomeResponse = "You Lose! Paper beats Rock";
+                outcome=-1;
             }
             else {
-                outcomeResponse = "You win! Rock beats Scissors"
+                outcomeResponse = "You win! Rock beats Scissors";
+                outcome=1;
             }
         }
         if (playerSelection == "scissors"){
             if (computerSelection == 'scissors'){
                 outcomeResponse = "It's a draw! Scissors equals Scissors"
+                outcome=0;
             }
             else if (computerSelection == 'rock' ){
                 outcomeResponse = "You Lose! Rock beats Scissors"
+                outcome=-1;
             }
             else {
                 outcomeResponse = "You win! Scissors beat Paper"
+                outcome=1;
             }
         }   
         if (playerSelection == "paper"){
             if (computerSelection == 'paper'){
                 outcomeResponse = "It's a draw! Paper equals Paper"
+                outcome=0;
             }
             else if (computerSelection == 'scissors' ){
                 outcomeResponse = "You Lose! Scissors beat paper"
+                outcome=-1;
             }
             else {
                 outcomeResponse = "You win! Paper beats Rock"
+                outcome=1;
             }
         }  
-        return (outcomeResponse)
+        return ([outcomeResponse, outcome])
     }
-    const playerSelection = "paper"
-    const computerSelection = computerPlay()
-    console.log(playRound(playerSelection,computerSelection))
+    function game(){
+        let playWins=0, compWins=0, draw = 0;
+        let playPick, compPick, outcome;
+        for (let i=0; i<5 ; i++ ){
+            console.log("Your current record is " + playWins + " wins, " + compWins + " losses, and " + draw + " draws")
+            playPick= playerPlay()
+            compPick= computerPlay()
+            outcome = playRound(playPick,compPick);
+            switch(outcome[1]){
+                case -1:
+                    compWins++;
+                    break;
+                case 0:
+                    draw++;
+                    break;
+                case 1:
+                    playWins++;
+            }
+            console.log(outcome[0])
+        }
+        console.log("The final record is "+ playWins + " wins, " + compWins + " losses, and " + draw + " draws")
+    }
+    game()
 </script>
