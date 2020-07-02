@@ -1,5 +1,17 @@
 <!DOCTYPE HTML>
-
+<head>
+    <meta charset = "UTF-8">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="container" class="container">
+        <button id="rock" class="button">Rock</button>
+        <button id="paper" class="button">Paper</button>
+        <button id="scissors" class="button">Scissors</button>
+        <br>
+    </div>
+    <div id="results" class="display">Press a button to play, first to 5 wins!</div>
+</body>
 <script>
     const choices = ["rock", "paper", "scissors"];
     function computerPlay(){
@@ -74,26 +86,41 @@
         return ([outcomeResponse, outcome])
     }
     function game(){
-        let playWins=0, compWins=0, draw = 0;
         let playPick, compPick, outcome;
-        for (let i=0; i<5 ; i++ ){
-            console.log("Your current record is " + playWins + " wins, " + compWins + " losses, and " + draw + " draws")
-            playPick= playerPlay()
-            compPick= computerPlay()
-            outcome = playRound(playPick,compPick);
-            switch(outcome[1]){
-                case -1:
-                    compWins++;
-                    break;
-                case 0:
-                    draw++;
-                    break;
-                case 1:
-                    playWins++;
+        playPick= this.id;
+        compPick= computerPlay();
+        outcome = playRound(playPick,compPick);
+        switch(outcome[1]){
+            case -1:
+                compWins++;
+                break;
+            case 0:
+                draw++;
+                break;
+            case 1:
+                playWins++;
             }
-            console.log(outcome[0])
+            
+        const display = document.querySelector(".display")
+        if (playWins < 5 && compWins <5){
+            display.textContent = (outcome[0]+"! Current score is "+ playWins+" wins, "+ compWins+" losses, and "+ draw+ " draws!");
         }
-        console.log("The final record is "+ playWins + " wins, " + compWins + " losses, and " + draw + " draws")
+        else {
+            if (playWins == 5){
+                display.textContent = "You WIN!!! Refresh to play again!";
+                compWins=0, playWins=0, draw = 0;
+            }
+            else if(compWins == 5){
+                display.textContent = "You LOSE!!! Refresh to play again!";
+                compWins=0, playWins=0, draw = 0;
+            }
+            
+        }
     }
-    game()
+    
+    const btns = document.querySelectorAll('button');
+    let compWins=0, playWins=0, draw = 0;
+    btns.forEach(button => button.addEventListener('click', game));
+
+
 </script>
