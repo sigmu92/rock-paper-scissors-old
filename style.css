@@ -22,6 +22,10 @@ button{
     font-family: Helvetica, sans-serif; 
     border-radius: 20px;
 }
+button:focus {
+    outline: none;
+    box-shadow: none;
+  }
 
 .display{
     text-align: center;
@@ -29,4 +33,9 @@ button{
     text-shadow: 1px 1px black;
     font-size: 32px;
     font-family: Arial, Helvetica, sans-serif;
+}
+
+.clicked{
+    transform: scale(1.05);
+    transition:0.1s;
 }

@@ -86,8 +86,10 @@
         return ([outcomeResponse, outcome])
     }
     function game(){
+
         let playPick, compPick, outcome;
         playPick= this.id;
+        this.classList.add('clicked');
         compPick= computerPlay();
         outcome = playRound(playPick,compPick);
         switch(outcome[1]){
@@ -117,10 +119,13 @@
             
         }
     }
-    
+    function removeTransition(e){
+        if(e.propertyName !== 'transform') return;
+        this.classList.remove("clicked")
+    }
     const btns = document.querySelectorAll('button');
     let compWins=0, playWins=0, draw = 0;
     btns.forEach(button => button.addEventListener('click', game));
-
+    btns.forEach(button => button.addEventListener('transitionend', removeTransition))
 
 </script>
