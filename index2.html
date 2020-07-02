@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+
+<script>
+    const choices = ["rock", "paper", "scissors"];
+    function computerPlay(){
+        let compChoice = Math.floor(3*Math.random())
+        return(choices[compChoice])
+    }
+    function playerPlay(){
+        let goodAnswer = false;
+        let playerChoice = prompt("Rock, paper, or scissors?")
+        playerChoice = playerChoice.toLowerCase()
+        goodAnswer = checkResponse(playerChoice);
+        while (goodAnswer==false){
+            playerChoice = prompt("Invalid response, try again!")
+            playerChoice = playerChoice.toLowerCase()
+            goodAnswer = checkResponse(playerChoice)
+        }
+        return(playerChoice)
+    }
+    function checkResponse(response){
+        let valid = false;
+        for (let i = 0; i<3; i++){
+            if (choices[i] == response){
+                valid = true
+            }
+}       return valid
+    }
+    function playRound(playerSelection,computerSelection){
+        let outcome;
+        let outcomeResponse
+        if (playerSelection == 'rock'){
+            if (computerSelection == 'rock'){
+                outcomeResponse = "It's a draw! Rock equals Rock";
+                outcome=0;
+            }
+            else if (computerSelection == 'paper' ){
+                outcomeResponse = "You Lose! Paper beats Rock";
+                outcome=-1;
+            }
+            else {
+                outcomeResponse = "You win! Rock beats Scissors";
+                outcome=1;
+            }
+        }
+        if (playerSelection == "scissors"){
+            if (computerSelection == 'scissors'){
+                outcomeResponse = "It's a draw! Scissors equals Scissors"
+                outcome=0;
+            }
+            else if (computerSelection == 'rock' ){
+                outcomeResponse = "You Lose! Rock beats Scissors"
+                outcome=-1;
+            }
+            else {
+                outcomeResponse = "You win! Scissors beat Paper"
+                outcome=1;
+            }
+        }   
+        if (playerSelection == "paper"){
+            if (computerSelection == 'paper'){
+                outcomeResponse = "It's a draw! Paper equals Paper"
+                outcome=0;
+            }
+            else if (computerSelection == 'scissors' ){
+                outcomeResponse = "You Lose! Scissors beat paper"
+                outcome=-1;
+            }
+            else {
+                outcomeResponse = "You win! Paper beats Rock"
+                outcome=1;
+            }
+        }  
+        return ([outcomeResponse, outcome])
+    }
+    function game(){
+        let playWins=0, compWins=0, draw = 0;
+        let playPick, compPick, outcome;
+        for (let i=0; i<5 ; i++ ){
+            console.log("Your current record is " + playWins + " wins, " + compWins + " losses, and " + draw + " draws")
+            playPick= playerPlay()
+            compPick= computerPlay()
+            outcome = playRound(playPick,compPick);
+            switch(outcome[1]){
+                case -1:
+                    compWins++;
+                    break;
+                case 0:
+                    draw++;
+                    break;
+                case 1:
+                    playWins++;
+            }
+            console.log(outcome[0])
+        }
+        console.log("The final record is "+ playWins + " wins, " + compWins + " losses, and " + draw + " draws")
+    }
+    game()
+</script>
